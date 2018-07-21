@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
 		}
 
 		health -= healthDamage;
-		Debug.Log("Health is " + health);
+		// Debug.Log("Health is " + health);
 		if(health <= 0)
 		{
 			// Debug.Log("GAME OVER");

@@ -42,6 +42,8 @@ public class Robot : MonoBehaviour
 			timeLastFired = Time.time;
 			fire();
 		}
+
+
 	}
 
 	public void TakeDamage(int amount)
@@ -50,19 +52,25 @@ public class Robot : MonoBehaviour
 		{
 			return;
 		}
+		health -= amount;
+		Debug.Log("ROBOT IS hit");
 		if(health <= 0)
 		{
 			isDead = true;
 			robot.Play("Die");
+			Debug.Log("ROBOT IS DEAAAAAAD");
 			StartCoroutine("DestroyRobot");
 		}
-		health -= amount;
 	}
 
-
+	private void OnDestroy() 
+	{
+		Debug.Log("ROBOT IS DESTROYED");
+	}
 	IEnumerable DestroyRobot()
 	{
-		yield return new WaitForSeconds(3);
+		yield return new WaitForSeconds(1.5f);
+		gameObject.SetActive(false);
 		Destroy(gameObject);
 	}
 

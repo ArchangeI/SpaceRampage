@@ -28,14 +28,36 @@ public class Gun : MonoBehaviour
 	// Update is called once per frame
 	protected virtual void Update()
 	{
-		
+		if(Input.GetKeyDown(KeyCode.Space))
+		{
+			Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomFOV,
+			zoomSpeed * Time.deltaTime);
+		}
+		else
+		{
+			Camera.main.fieldOfView = Constants.CameraDefaultZoom;
+		}
 	}
 	
+	void ProcessHit(GameObject hitObject)
+	{
+		if(hitObject.GetComponent<Player>() != null)
+		{
+			hitObject.GetComponent<Player>().TakeDamage(damage);
+		}
+		if(hitObject.GetComponent<Robot>() != null)
+		{
+			hitObject.GetComponent<Robot>().TakeDamage(damage);
+		}
+
+	}
+
+
 	protected void Fire()
 	{
 		if(ammo.HasAmmo(tag))
 		{
-			Debug.Log("ammo " + tag + " = " + ammo.GetAmmo(tag));
+			// Debug.Log("ammo " + tag + " = " + ammo.GetAmmo(tag));
 			AudioSource source = GetComponent<AudioSource>();
 			
 			// GetComponent<AudioSource>().PlayOneShot(liveFire);
@@ -46,7 +68,7 @@ public class Gun : MonoBehaviour
 			}
 			else
 			{
-				Debug.LogError("ERRORRRR");
+				// Debug.LogError("ERRORRRR");
 			}
 			ammo.ConsumeAmmo(tag);
 		}
@@ -55,5 +77,13 @@ public class Gun : MonoBehaviour
 			GetComponent<AudioSource>().PlayOneShot(dryFire);
 		}
 		GetComponentInChildren<Animator>().Play("Fire");
+
+
+		Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f,0.5f,0));
+		RaycastHit hit;
+		if(Physics.Raycast(ray, out hit, range))
+		{
+			ProcessHit(hit.collider.gameObject);
+		}
 	}
 }
