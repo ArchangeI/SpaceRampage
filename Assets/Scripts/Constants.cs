@@ -25,7 +25,7 @@ public class Constants
 	public const int PickupShotgunAmmo = 2;
 	public const int PickupAssaultRifleAmmo = 3;
 	public const int PickupHealth = 4;
-	public const int PickupAmmo = 5;
+	public const int PickupArmor = 5;
 
 	//misc
 	public const string Game = "Game";
@@ -38,6 +38,6 @@ public class Constants
 		PickupShotgunAmmo,
 		PickupAssaultRifleAmmo,
 		PickupHealth,
-		PickupAmmo
+		PickupArmor
 	};
 }

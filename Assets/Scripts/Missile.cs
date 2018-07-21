@@ -25,6 +25,7 @@ public class Missile : MonoBehaviour
 		if(collider.gameObject.GetComponent<Player>() != null 
 		&& collider.gameObject.tag == "Player")
 		{
+			Debug.Log("PLAYER HIT !!!!!!!!");
 			collider.gameObject.GetComponent<Player>().TakeDamage(damage);
 			Destroy(gameObject);
 		}
